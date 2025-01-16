@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class addall {
+public class addAll {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int numCases = scanner.nextInt(); // Number of test cases
