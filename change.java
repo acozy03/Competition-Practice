@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class change {
-    public static void Main(String args[]) {
+    public static void main(String args[]) {
 
         Scanner scanner = new Scanner(System.in);
         int n = Integer.parseInt(scanner.nextLine());
@@ -9,35 +9,37 @@ public class change {
 
         for (int i = 0; i < n; i++) {
 
-            int numPackages = Integer.parseInt(scanner.nextLine());
-
+            int numPackages = Integer.parseInt(scanner.next());
+            int packages[] = new int[numPackages];
             for (int j = 0; j < numPackages; j++) {
-
-                int packages[] = new int[numPackages];
                 if (scanner.hasNextInt()) {
                     packages[j] = scanner.nextInt();
                 }
-
-                Arrays.sort(packages);
-                res[i] = changeLogic(packages, numPackages);
-
             }
+
+            Arrays.sort(packages);
+            res[i] = changeLogic(packages);
+        }
+
+        for (int i = 0; i < n; i++) {
+            System.out.println(res[i]);
         }
 
     }
 
-    public static int changeLogic(int packages[], int numPackages) {
+    public static int changeLogic(int[] denom) {
 
-        int res = 0;
-        int max = 0;
+        // Needed for our greedy algorithm.
+        // Basically, the current sum+1 is the maximum value the next number
+        // must be. If it's bigger, we know we can't hit this current target exactly.
+        int sum = 0, curTarget = 1, index = 0;
+        while (index < denom.length && denom[index] <= curTarget) {
+            sum += denom[index];
+            curTarget = sum + 1;
+            index++;
+        }
 
-        for (int i = 0; i < numPackages; i++)
-            max += packages[i];
-
-        System.out.println(max);
-
-        return res;
-
+        return curTarget;
     }
 
 }
