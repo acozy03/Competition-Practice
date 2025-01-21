@@ -10,7 +10,7 @@ public class ceiling {
         int n = stdin.nextInt();
         int len = stdin.nextInt();
 
-        // Will store each tree here
+        // Will store each tree here.
         node[] trees = new node[n];
 
         // Read in trees.
