@@ -24,7 +24,7 @@ public class change {
         for (int i = 0; i < n; i++) {
             System.out.println(res[i]);
         }
-
+        scanner.close();
     }
 
     public static int changeLogic(int[] denom) {

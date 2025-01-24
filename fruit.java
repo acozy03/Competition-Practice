@@ -27,6 +27,7 @@ public class fruit {
             for (int i = 0; i < days; i++) {
                 dailySales[i] = scanner.nextInt();
                 if (dailySales[i] < 0 || dailySales[i] > 1000) {
+                    scanner.close();
                     return;
                 }
             }
