@@ -5,8 +5,10 @@ public class covid19 {
         Scanner scanner = new Scanner(System.in);
         // number of input cases
         int n = Integer.parseInt(scanner.nextLine());
-        if (n > 10)
+        if (n > 10) {
+            scanner.close();
             return;
+        }
         int res[] = new int[10];
         // for each test case
         for (int i = 0; i < n; i++) {

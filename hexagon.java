@@ -24,12 +24,14 @@ public class hexagon {
                         inputArr[j][k] = scanner.nextInt();
                         totalInputs++;
                     } else {
+                        scanner.close();
                         return;
                     }
                 }
             }
 
             if (totalInputs != 42) {
+                scanner.close();
                 return;
             }
 

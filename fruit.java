@@ -5,6 +5,7 @@ public class fruit {
         Scanner scanner = new Scanner(System.in);
         int numTestCases = scanner.nextInt();
         if (numTestCases < 1 || numTestCases > 200) {
+            scanner.close();
             return;
         }
 
@@ -16,6 +17,7 @@ public class fruit {
         while (numTestCases > 0) {
             int days = scanner.nextInt();
             if (days < 1 || days > 1000) {
+                scanner.close();
                 return;
             }
 

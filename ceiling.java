@@ -51,6 +51,7 @@ public class ceiling {
 
         // Ta da!
         System.out.println(res);
+        stdin.close();
     }
 }
 
