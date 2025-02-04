@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-
+// i literally cannot figure this problem out
 class TrieNode {
     Map<Character, TrieNode> children;
     int count;
@@ -86,45 +86,21 @@ public class lottery {
         Trie reverseTrie = new Trie();
         int currentIndex = 0;  // Index counter
         int maxSearchIndex = 0;  // Highest index that should be considered for searches
-        boolean isReversed = false;
-        int totalStringLength = 0;  // Track total string length
+        boolean isReversed = false; // Track total string length
 
         int q = Integer.parseInt(br.readLine());
 
-        // Constraint 1: Ensure 1 ≤ q ≤ 100000
-        if (q < 1 || q > 100000) {
-            return;
-        }
 
         for (int i = 0; i < q; i++) {
             String line = br.readLine();
             String[] query = line.split(" ", 2);
 
-            // Constraint 2: Ensure the query starts with 1, 2, or 3
-            if (query.length == 0 || (!query[0].equals("1") && !query[0].equals("2") && !query[0].equals("3"))) {
-                return; 
-            }
-
             int type = Integer.parseInt(query[0]);
 
             switch (type) {
-                case 1: // Insert operation
-                    if (query.length < 2) {
-                        return;
-                    }
+                case 1: 
 
                     String name = query[1];
-
-                    // Constraint 3: Ensure each string is at most 100000 characters long
-                    if (name.length() > 100000) {
-                        return; 
-                    }
-
-                    // Constraint 4: Ensure the sum of all strings is at most 600000
-                    totalStringLength += name.length();
-                    if (totalStringLength > 600000) {
-                        return; 
-                    }
 
                     normalTrie.insert(name, currentIndex);
                     reverseTrie.insert(new StringBuilder(name).reverse().toString(), currentIndex);
@@ -132,16 +108,8 @@ public class lottery {
                     break;
 
                 case 2: // Count prefix operation
-                    if (query.length < 2) {
-                        throw new IllegalArgumentException("Error: Count query (2) must be followed by a prefix.");
-                    }
 
                     String prefix = query[1];
-
-                    // Constraint 3 (applies to prefix as well): Ensure each prefix is at most 100000 characters long
-                    if (prefix.length() > 100000) {
-                        throw new IllegalArgumentException("Error: A prefix cannot exceed 100000 characters.");
-                    }
 
                     if (isReversed) {
                         out.println(reverseTrie.countPrefix(new StringBuilder(prefix).toString(), maxSearchIndex));
