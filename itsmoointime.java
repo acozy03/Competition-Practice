@@ -1,42 +1,42 @@
 import java.util.*;
 
 public class itsmoointime {
+    static final int MAXN = 1000005;
+    static int[] a = new int[MAXN], pref = new int[MAXN], cnt = new int[MAXN];
+    static long ans = 0;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int n = scanner.nextInt();
-        int[] arr = new int[n];
-
-        for (int i = 0; i < n; i++) {
-            arr[i] = scanner.nextInt();
+        
+        for (int i = 1; i <= n; i++) {
+            a[i] = scanner.nextInt();
         }
-
-        Map<Integer, Integer> countMap = new HashMap<>();
-        for (int num : arr) {
-            countMap.put(num, countMap.getOrDefault(num, 0) + 1);
-        }
-
-        Set<String> distinctMoos = new HashSet<>();
-
-        Map<Integer, Integer> firstValues = new HashMap<>();
-
-        for (int j = 0; j < n; j++) {
-            int middleValue = arr[j];
-            
-            countMap.put(middleValue, countMap.get(middleValue) - 1);
-            if (countMap.get(middleValue) == 0) {
-                countMap.remove(middleValue);
+        
+        for (int i = 1; i <= n; i++) {
+            pref[i] = pref[i - 1];
+            cnt[a[i]]++;
+            if (cnt[a[i]] == 1) {
+                pref[i]++;
             }
-            for (Map.Entry<Integer, Integer> entry : firstValues.entrySet()) {
-                int firstValue = entry.getKey();
-
-                if (firstValue != middleValue && countMap.containsKey(middleValue)) {
-                    String moo = firstValue + " " + middleValue + " " + middleValue;
-                    distinctMoos.add(moo);
-                }
-            }
-            firstValues.put(middleValue, firstValues.getOrDefault(middleValue, 0) + 1);
         }
-
-        System.out.println(distinctMoos.size());
+        
+        Arrays.fill(cnt, 0);
+        
+        for (int i = n; i >= 1; i--) {
+            cnt[a[i]]++;
+            if (cnt[a[i]] == 2) {
+                ans += pref[i - 1];
+            }
+        }
+        
+        for (int i = 1; i <= n; i++) {
+            if (cnt[i] >= 3) {
+                ans--;
+            }
+        }
+        
+        System.out.println(ans);
+        scanner.close();
     }
 }
