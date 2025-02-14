@@ -86,6 +86,7 @@ public class puzzle {
             }
             System.out.println(solve(board));
         }
+        scanner.close();
     }
 
     public static int solve(int[] startBoard) {

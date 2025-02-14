@@ -28,6 +28,7 @@ class Graph {
     private List<Integer>[] adj;
     private int[] indegree;
 
+    @SuppressWarnings("unchecked")
     public Graph(int numEssays) {
         this.numEssays = numEssays;
         adj = new ArrayList[numEssays + 1];
