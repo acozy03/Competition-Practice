@@ -1,3 +1,4 @@
+package AllContests.Comp2;
 import java.util.*;
 
 public class conference {

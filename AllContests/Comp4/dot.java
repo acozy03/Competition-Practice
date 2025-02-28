@@ -1,3 +1,4 @@
+package AllContests.Comp4;
 import java.util.*;
 
 public class dot {

@@ -1,3 +1,4 @@
+package AllContests.Comp3;
 import java.util.Scanner;
 
 public class avl {

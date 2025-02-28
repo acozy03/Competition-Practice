@@ -1,3 +1,4 @@
+package AllContests.Comp4;
 import java.util.*;
 import java.io.*;
 // i literally cannot figure this problem out

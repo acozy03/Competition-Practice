@@ -1,3 +1,4 @@
+package AllContests.Comp7;
 import java.util.*;
 // most of this code was taken straight from math notes from this week 
 public class fact {

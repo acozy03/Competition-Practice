@@ -1,3 +1,4 @@
+package AllContests.Comp7;
 import java.util.*;
 
 public class profits {

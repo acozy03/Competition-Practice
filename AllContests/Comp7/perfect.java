@@ -1,3 +1,4 @@
+package AllContests.Comp7;
 import java.util.Scanner;
 // i only iterate up to sqrt n instead of n/2 bc of huge input size and that's how it shouldve been in the first place tbh 
 public class perfect {

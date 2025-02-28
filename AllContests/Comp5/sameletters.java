@@ -1,3 +1,4 @@
+package AllContests.Comp5;
 import java.util.*;
 public class sameletters {
     public static void main(String[] args) {

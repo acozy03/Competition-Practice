@@ -1,3 +1,4 @@
+package AllContests.Comp6;
 import java.util.*;
 
 public class ant {

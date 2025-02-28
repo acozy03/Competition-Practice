@@ -1,3 +1,4 @@
+package AllContests.Comp5;
 import java.util.*;
 
 public class stars {

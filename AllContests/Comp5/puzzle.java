@@ -1,3 +1,4 @@
+package AllContests.Comp5;
 import java.util.*;
 
 class PuzzleState implements Comparable<PuzzleState> {
