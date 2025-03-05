@@ -1,91 +1,78 @@
-package AllContests.Comp8;
 import java.util.*;
 
 public class almost {
-    // backtracking and perm problem 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int numCases = scanner.nextInt(); 
-
+        int numCases = scanner.nextInt();
         for (int i = 0; i < numCases; i++) {
-            int d = scanner.nextInt(); 
-            int[] magicSquare = new int[9]; 
+            // d being the value to work towards
+            // if max row, col, or diag sum - min row, col, diag is <= d, we have a match 
+            int d = scanner.nextInt();
+            int[] square = new int[9]; 
+            // store the numbers for square 
             for (int j = 0; j < 9; j++) {
-                magicSquare[j] = scanner.nextInt();
+                square[j] = scanner.nextInt();
             }
-            // arraylist of arraylist bc im psycho and love 2d arrays, hear me out 
-            // each permutation represents a possible 3x3 square
-            // instead of modifying the original array each time, we store each permutation as a separate list
-            ArrayList<ArrayList<Integer>> permutations = new ArrayList<>();
-            permute(magicSquare, 0, permutations);
-            int res = 0;
-            for (ArrayList<Integer> perm : permutations) {
-                if (isAlmostMagic(perm, d)) {
-                    res++;
-                }
-        }
-            System.out.println(res); 
+            // stuff for print perms 
+            int[] perm = new int[9]; 
+            boolean[] used = new boolean[9]; 
+             // we take our square and fill in every perm, check if almostmagic for every perm and if it is, add it to res
+            int res = printperms(square, perm, used, 0, d);
+            System.out.println(res);
         }
         scanner.close();
     }
 
-    private static void permute(int[] magicSquare, int start, ArrayList<ArrayList<Integer>> res) {
-        if (start == magicSquare.length) {
-            // if we placed all numbers, store the perm
-            ArrayList<Integer> perm = new ArrayList<>();
-            for (int num : magicSquare) {
-                perm.add(num);
+    public static int printperms(int[] square, int[] perm, boolean[] used, int k, int d) {
+        if (k == 9) {
+            // filled the square, now check if its valid 
+            return isAlmostMagic(perm, d); 
+        }
+
+        int res = 0;
+        for (int i = 0; i < 9; i++) {
+            if (!used[i]) {
+                used[i] = true;
+                perm[k] = square[i]; 
+                res += printperms(square, perm, used, k + 1, d); 
+                used[i] = false; 
             }
-            res.add(perm);
-            return;
         }
-        for (int i = start; i < magicSquare.length; i++) {
-            // swap each number with every other number (including itself)
-            swap(magicSquare, start, i);
-            permute(magicSquare, start + 1, res); // recurse
-            swap(magicSquare, start, i); // backtrack which gets back original order 
-        }
+        return res;
     }
 
-    private static boolean isAlmostMagic(ArrayList<Integer> magicSquare, int d) {
-        int[] rowSums = new int[3];
-        int[] colSums = new int[3];
-
-        // these operations took way too long to code out in my head but im very proud of myself
-        for (int row = 0; row < 3; row++) {
-            rowSums[row] = magicSquare.get(row * 3) + magicSquare.get(row * 3 + 1) + magicSquare.get(row * 3 + 2);
+    private static int isAlmostMagic(int[] perm, int d) {
+        // this is how im vizualizing the square, it makes it easier to calculate the sums 
+        int[][] square = {
+            {perm[0], perm[1], perm[2]},
+            {perm[3], perm[4], perm[5]},
+            {perm[6], perm[7], perm[8]}
+        };
+        // there are 3 row sums, 3 column sums and 2 diagonals
+        // i need an array of 8 that holds all the sums, 0-2 will hold row, 3-5 hold column, 5-7 hold diagonal 
+        int[] sums = new int[8];
+        // rows
+        for (int i = 0; i < 3; i++) {
+            sums[i] = square[i][0] + square[i][1] + square[i][2]; 
         }
-        for (int col = 0; col < 3; col++) {
-            colSums[col] = magicSquare.get(col) + magicSquare.get(col + 3) + magicSquare.get(col + 6);
-         }
-
-        int diag1 = magicSquare.get(0) + magicSquare.get(4) + magicSquare.get(8);
-        int diag2 = magicSquare.get(2) + magicSquare.get(4) + magicSquare.get(6);
-
-        // store all sums to make it easier
-        ArrayList<Integer> allSums = new ArrayList<>();
-        for (int sum : rowSums) 
-        {
-            allSums.add(sum);
+        // columns
+        int columnIdx = 3; 
+        for (int i = 0; i < 3; i++) {
+            sums[columnIdx] = square[0][i] + square[1][i] + square[2][i]; 
+            columnIdx++; 
         }
-        for (int sum : colSums) 
-        {
-            allSums.add(sum);
+        // diagonals 
+        sums[6] = square[0][0] + square[1][1] + square[2][2]; 
+        sums[7] = square[0][2] + square[1][1] + square[2][0]; 
+        
+        int minSum = sums[0], maxSum = sums[0];
+        for (int i = 1; i < 8; i++) {
+            if (sums[i] < minSum) minSum = sums[i];
+            if (sums[i] > maxSum) maxSum = sums[i];
         }
 
-        allSums.add(diag1);
-        allSums.add(diag2);
-
-        int maxSum = Collections.max(allSums);
-        int minSum = Collections.min(allSums);
-
-        if(maxSum-minSum <= d) return true; // WE GOT THE FREAKING SQUARE
-        else return false;
-    }
-
-    private static void swap(int[] magicSquare, int i, int j) {
-        int temp = magicSquare[i];
-        magicSquare[i] = magicSquare[j];
-        magicSquare[j] = temp;
+        // if max row, col, or diag sum - min row, col, diag is <= d, we have a match
+        if(maxSum - minSum <= d) return 1; 
+        else return 0; 
     }
 }
