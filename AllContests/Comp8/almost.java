@@ -1,3 +1,5 @@
+package AllContests.Comp8;
+
 import java.util.*;
 
 public class almost {
