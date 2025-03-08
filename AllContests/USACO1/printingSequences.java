@@ -1,4 +1,3 @@
-package AllContests.USACO1;
 import java.util.*;
 
 public class printingSequences {
@@ -26,6 +25,7 @@ public class printingSequences {
     private static boolean canGenerateSequence(int[] sequence, int maxUniqueNums) {
         // Get the length of the sequence.
         int sizeOfSequence = sequence.length;
+        
         return true; 
     }
 }

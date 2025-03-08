@@ -1,4 +1,3 @@
-package AllContests.USACO1;
 import java.util.*;
 
 public class mex {
