@@ -33,7 +33,7 @@ public class fruit {
                 }
             }
 
-            // Calculate results using the new method
+            // Calculate 
             int minOrder = calculateCeilingMinOrder(dailySales);
             int maxExtra = calculateMaxExtraFruits(dailySales, minOrder);
             res[cnt * 2] = minOrder;
